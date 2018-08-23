@@ -53,7 +53,7 @@ describe('API testing - Non-editable permissions of manager role', () => {
 describe('API testing - Negative tests', () => {
 
     it('PATCH - Bad RoleID, should return 404 - No role found with provided ID', function () {
-        request.updatePermissions(null, user.DefaultToken, 'barcode.print', 1)
+        request.updatePermissions(user.BadRoleID, user.DefaultToken, 'barcode.print', 1)
             .then((response) => {
                 expect(response.status).to.eq(404);
                 expect(response.body).to.have.property('error','No role found with provided ID');
