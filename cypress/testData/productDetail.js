@@ -1,0 +1,1 @@
+export const PrintLabelButton = 'div.button-bar a[href*="barcode"]'
