@@ -84,7 +84,7 @@ describe('Edit manager permission (Add Product) via API and verify the changes f
         });
     });
 
-    it('Disable Add Product permission via API, should get OK', () => {
+    it('Enable Add Product permission via API, should get OK', () => {
         request.updatePermissions(user.ManagerRoleID, user.DefaultToken, AddProduct, 1).should((response) => {
             expect(response.status).to.eq(200);
         });
