@@ -2,11 +2,12 @@ import * as signIn from "../testData/signInPage";
 import * as user from "../testData/users";
 import * as roles from "../testData/rolePage"
 import * as request from "../testData/request";
-import * as product from "../testData/productDetailPage";
+import * as productDetail from "../testData/productDetailPage";
+import * as product from "../testData/productPage";
 const PrintLabel = 'barcode.print';
+const AddProduct = 'product.add_edit';
 
 describe('Edit manager permission (Print Label) via API and verify the changes from UI', () => {
-
 
 
     before('Ensure the Print Label Permission is checked', function () {
@@ -33,8 +34,8 @@ describe('Edit manager permission (Print Label) via API and verify the changes f
 
     it('Sign in as Manager and expect there is no "Print Label" button in Product Detail page', function () {
         signIn.signInAsManager();
-        product.navigateTo(product.DefaultProductID);
-        cy.get(product.ButtonBar).should(($a) => {
+        productDetail.navigateTo(productDetail.DefaultProductID);
+        cy.get(productDetail.ButtonBar).should(($a) => {
             expect($a).to.not.contain('Print Label');
         });
     });
@@ -42,9 +43,9 @@ describe('Edit manager permission (Print Label) via API and verify the changes f
 
     it('Enable Print Label permission via API, should get OK', () => {
         request.updatePermissions(user.ManagerRoleID, user.DefaultToken, PrintLabel, 1)
-            .then((response)=> {
+            .then((response) => {
                 expect(response.status).to.eq(200);
-        })
+            })
     });
 
 
@@ -57,14 +58,47 @@ describe('Edit manager permission (Print Label) via API and verify the changes f
 
     it('Sign in as Manager and expect there is a "Print Label" button in Product Detail page', function () {
         signIn.signInAsManager();
-        product.navigateTo(product.DefaultProductID);
-        cy.get(product.ButtonBar).should(($a) => {
+        productDetail.navigateTo(productDetail.DefaultProductID);
+        cy.get(productDetail.ButtonBar).should(($a) => {
             expect($a).to.contain('Print Label');
         });
-    })
+    });
+
+});
+
+
+describe('Edit manager permission (Add Product) via API and verify the changes from UI', () => {
+
+    it('Disable Add Product permission via API, should get OK', () => {
+        request.updatePermissions(user.ManagerRoleID, user.DefaultToken, AddProduct, 0).should((response) => {
+            expect(response.status).to.eq(200);
+        });
+    });
+
+
+    it('Sign in as Manager and expect there is no "Add Product" button in Product Detail page', function () {
+        signIn.signInAsManager();
+        product.navigateTo();
+        cy.get(product.ACTION_BAR).should(($a) => {
+            expect($a).to.not.contain('Add Product');
+        });
+    });
+
+    it('Disable Add Product permission via API, should get OK', () => {
+        request.updatePermissions(user.ManagerRoleID, user.DefaultToken, AddProduct, 1).should((response) => {
+            expect(response.status).to.eq(200);
+        });
+    });
+
+
+    it('Sign in as Manager and expect there is "Add Product" button in Product page', function () {
+        signIn.signInAsManager();
+        cy.visit('/product').contains('Add Product').should('be.visible');
+    });
 
 
 });
+
 
 
 

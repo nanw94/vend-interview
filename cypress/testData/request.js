@@ -34,6 +34,7 @@ export function updatePermissions(roleId, token, name, value) {
 
 export const ManagerEditablePermissions =[
     "barcode.print",
+    "product.add_edit",
     "store_credit.issue.manual",
     "store_credit.issue.return",
     "product.price_book.manage",
@@ -48,6 +49,8 @@ export const ManagerEditablePermissions =[
     "customer.export",
     "reporting.sales.all",
     "promotion.add_edit",
+    "product.cost.manage",
+    "product.cost.view",
 ];
 
 export const ManagerNonEditablePermissions = [
