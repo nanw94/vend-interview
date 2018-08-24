@@ -32,7 +32,7 @@ describe('Edit manager permission (Print Label) via API and verify the changes f
     });
 
 
-    it('Sign in as Manager and expect there is no "Print Label" button in Product Detail page', function () {
+    it('Sign in as Manager and expect there is no "Print Label" button in Product page', function () {
         signIn.signInAsManager();
         productDetail.navigateTo(productDetail.DefaultProductID);
         cy.get(productDetail.ButtonBar).should(($a) => {
