@@ -76,7 +76,7 @@ describe('Edit manager permission (Add Product) via API and verify the changes f
     });
 
 
-    it('Sign in as Manager and expect there is no "Add Product" button in Product Detail page', function () {
+    it('Sign in as Manager and expect there is no "Add Product" button in Product page', function () {
         signIn.signInAsManager();
         product.navigateTo();
         cy.get(product.ACTION_BAR).should(($a) => {
